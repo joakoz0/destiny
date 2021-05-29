@@ -11,45 +11,46 @@ idz_tyl = [pygame.image.load('tyl1.png'), pygame.image.load('tyl2.png')]
 tlo = pygame.image.load('tlo.jpg')
 stoj = pygame.image.load('1.png')
 
-szerokosc_poczatkowa = 600
-wysokosc_poczatkowa = 600
-ruch = 4
-
 clock = pygame.time.Clock()
 
-lewo = False
-prawo = False
-prosto = False
-tyl = False
-licznik = 0
+class Bohater():
+    def __init__(self, szerokosc_poczatkowa, wysokosc_poczatkowa):
+        self.szerokosc_poczatkowa = szerokosc_poczatkowa
+        self.wysokosc_poczatkowa = wysokosc_poczatkowa
+        self.ruch = 4
+        self.lewo = False
+        self.prawo = False
+        self.prosto = False
+        self.tyl = False
+        self.licznik = 0
 
-def ruchy_bohatera():
-    global licznik
+    def ruchy_bohatera(self, okno):
+        if self.licznik +1 >= 6:
+            self.licznik = 0
 
+        if self.lewo:
+            okno.blit(idz_lewo[self.licznik//3], (self.szerokosc_poczatkowa,self.wysokosc_poczatkowa))
+            self.licznik += 1
+        elif self.prawo:
+            okno.blit(idz_prawo[self.licznik//3], (self.szerokosc_poczatkowa,self.wysokosc_poczatkowa))
+            self.licznik += 1
+        elif self.prosto:
+            okno.blit(idz_prosto[self.licznik//3], (self.szerokosc_poczatkowa,self.wysokosc_poczatkowa))
+            self.licznik += 1
+        elif self.tyl:
+            okno.blit(idz_tyl[self.licznik//3], (self.szerokosc_poczatkowa,self.wysokosc_poczatkowa))
+            self.licznik += 1
+        else:
+            okno.blit(stoj, (self.szerokosc_poczatkowa, self.wysokosc_poczatkowa))
+
+def okno_gry():
     okno.blit(tlo, (0,0))
-    if licznik +1 >= 6:
-        licznik = 0
-
-    if lewo:
-        okno.blit(idz_lewo[licznik//3], (szerokosc_poczatkowa,wysokosc_poczatkowa))
-        licznik += 1
-    elif prawo:
-        okno.blit(idz_prawo[licznik//3], (szerokosc_poczatkowa,wysokosc_poczatkowa))
-        licznik += 1
-    elif prosto:
-        okno.blit(idz_prosto[licznik//3], (szerokosc_poczatkowa,wysokosc_poczatkowa))
-        licznik += 1
-    elif tyl:
-        okno.blit(idz_tyl[licznik//3], (szerokosc_poczatkowa,wysokosc_poczatkowa))
-        licznik += 1
-    else:
-        okno.blit(stoj, (szerokosc_poczatkowa, wysokosc_poczatkowa))
-        licznik = 0
+    gracz.ruchy_bohatera(okno)
 
     pygame.display.update()
 
-
-
+#główna część
+gracz = Bohater(600, 600)
 run = True
 
 while run:
@@ -62,39 +63,38 @@ while run:
     klawisz = pygame.key.get_pressed()
 
     if klawisz[pygame.K_LEFT]:
-        szerokosc_poczatkowa -= ruch
-        lewo = True
-        prawo = False
-        tyl = False
-        prosto = False
+        gracz.szerokosc_poczatkowa -= gracz.ruch
+        gracz.lewo = True
+        gracz.prawo = False
+        gracz.tyl = False
+        gracz.prosto = False
 
     elif klawisz[pygame.K_RIGHT]:
-        szerokosc_poczatkowa += ruch
-        prawo = True
-        lewo = False
-        tyl = False
-        prosto = False
+        gracz.szerokosc_poczatkowa += gracz.ruch
+        gracz.prawo = True
+        gracz.lewo = False
+        gracz.tyl = False
+        gracz.prosto = False
 
     elif klawisz[pygame.K_UP]:
-        wysokosc_poczatkowa -= ruch
-        prosto = True
-        lewo = False
-        prawo = False
-        tyl = False
+        gracz.wysokosc_poczatkowa -= gracz.ruch
+        gracz.prosto = True
+        gracz.lewo = False
+        gracz.prawo = False
+        gracz.tyl = False
 
     elif klawisz[pygame.K_DOWN]:
-        wysokosc_poczatkowa += ruch
-        tyl = True
-        prosto = False
-        lewo = False
-        prawo = False
+        gracz.wysokosc_poczatkowa += gracz.ruch
+        gracz.tyl = True
+        gracz.prosto = False
+        gracz.lewo = False
+        gracz.prawo = False
     else:
-        lewo = False
-        prawo = False
-        tyl = False
-        prosto = False
+        gracz.lewo = False
+        gracz.prawo = False
+        gracz.tyl = False
+        gracz.prosto = False
 
-    ruchy_bohatera()
-
+    okno_gry()
 
 pygame.quit()
