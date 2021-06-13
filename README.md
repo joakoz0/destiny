@@ -183,14 +183,14 @@ class pociski(object):
 
 
 
-gracz = Bohater(600, 600, 60, 60)
+gracz = Bohater(30, 600, 60, 60)
 
-szczur1 = Enemy(150,200,20,20)
-szczur2 = Enemy(150,400,20,20)
-szczur3 = Enemy(150,600,20,20)
-szczur4 = Enemy(850,200,20,20)
-szczur5 = Enemy(850,400,20,20)
-szczur6 = Enemy(850,600,20,20)
+szczur1 = Enemy(120,200,20,20)
+szczur2 = Enemy(280,400,20,20)
+szczur3 = Enemy(480,600,20,20)
+szczur4 = Enemy(700,200,20,20)
+szczur5 = Enemy(870,400,20,20)
+szczur6 = Enemy(950,600,20,20)
 
 run = True
 strzaly=[]
