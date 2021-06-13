@@ -79,7 +79,7 @@ class Bohater():
     def hit(self):
         if self.visible==True:
 
-            self.x=620
+            self.x=30
             self.y=620
             if self.zdrowko!=30:
                 self.zdrowko-=5
